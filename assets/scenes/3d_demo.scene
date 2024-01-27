@@ -17,13 +17,6 @@ Entities:
       specular: [0.6, 0.6, 0.6]
     Canis::ScriptComponent: SpawnCube
   - 1:
-    Canis::TransformComponent:
-      active: true
-      position: [0.0, 0.0, 0.0]
-      rotation: [0.0, 0.0, 0.0]
-      scale: [1.0, 1.0, 1.0]
-    Canis::ScriptComponent: FlyCam
-  - 2:
     Canis::RectTransformComponent:
       active: true
       anchor: 6
@@ -42,3 +35,5 @@ Entities:
       text: FPS
       alignment: 0
     Canis::ScriptComponent: FPSCounter
+  - 2:
+    Prefab: "assets/prefabs/water.prefab"

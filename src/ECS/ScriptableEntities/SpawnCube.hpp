@@ -10,6 +10,8 @@
 
 #include "Rotate.hpp"
 #include "LookAtTarget.hpp"
+#include "PlayerCamera.hpp"
+#include "PlayerMovement.hpp"
 
 class SpawnCube : public Canis::ScriptableEntity
 {
@@ -68,20 +70,37 @@ public:
         smallSmallCube.SetScale(glm::vec3(0.5f));
         smallSmallCube.SetParent(smallCube);
 
+        Canis::Entity monkey = CreateEntity();
+
         {
             Canis::TransformComponent tr;
             tr.registry = &(GetScene().entityRegistry);    
 
             mesh.id = Canis::AssetManager::LoadModel("assets/models/monkey.obj");        
 
-            Canis::Entity c = CreateEntity();
-            c.AddComponent<Canis::TransformComponent>(tr);
-            c.AddComponent<Canis::ColorComponent>();
-            c.AddComponent<Canis::MeshComponent>(mesh);
-            c.AddComponent<Canis::SphereColliderComponent>(collider);
-            LookAtTarget& lookAtTarget = c.AddScript<LookAtTarget>();
+            monkey.AddComponent<Canis::TransformComponent>(tr);
+            monkey.AddComponent<Canis::ColorComponent>();
+            monkey.AddComponent<Canis::MeshComponent>(mesh);
+            monkey.AddComponent<Canis::SphereColliderComponent>(collider);
             
-            lookAtTarget.target = cube;
+        }
+
+        PlayerMovement& playerMovement = monkey.AddScript<PlayerMovement>();
+
+        {
+            Canis::Entity cameraPivot = CreateEntity();
+            Canis::TransformComponent& camPivotTransform = cameraPivot.AddComponent<Canis::TransformComponent>();
+            camPivotTransform.registry = &(GetScene().entityRegistry); 
+
+            Canis::Entity camera = CreateEntity();
+            Canis::TransformComponent& camTransform = camera.AddComponent<Canis::TransformComponent>();
+            camTransform.registry = &(GetScene().entityRegistry); 
+            Canis::SetTransformPosition(camTransform, glm::vec3(3.0f));
+            PlayerCamera& playerCamera = camera.AddScript<PlayerCamera>();
+            playerCamera.target = monkey;
+            
+            camera.SetParent(cameraPivot);
+            playerMovement.camera = camera;
         }
     }
     
