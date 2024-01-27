@@ -8,6 +8,7 @@
 #include <Canis/ScriptableEntity.hpp>
 #include <Canis/ECS/Components/ScriptComponent.hpp>
 #include <Canis/ECS/Components/TransformComponent.hpp>
+#include <Canis/SceneManager.hpp>
 
 class PlayerMovement : public Canis::ScriptableEntity
 {
@@ -112,6 +113,12 @@ public:
         // OnGround Edge Check
 
         SetTransformPosition(transform, targetPosition);
+
+        // check if you fell in water
+        if (GetGlobalPosition(transform).y < 0.0f)
+        {
+            ((SceneManager*)GetScene().sceneManager)->Load("game_over");
+        }
     }
 };
 

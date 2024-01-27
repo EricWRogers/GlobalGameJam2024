@@ -12,6 +12,7 @@
 #include "LookAtTarget.hpp"
 #include "PlayerCamera.hpp"
 #include "PlayerMovement.hpp"
+#include "Turtle.hpp"
 
 class SpawnCube : public Canis::ScriptableEntity
 {
@@ -73,6 +74,20 @@ public:
             camera.SetParent(cameraPivot);
             playerMovement.camera = camera;
             playerMovement.cube = cube;
+        }
+
+        Canis::Entity turtle = CreateEntity();
+
+        {
+            Canis::SetTransformPosition(transform, glm::vec3(2.0f));
+            Canis::SetTransformScale(transform, glm::vec3(1.0f, 0.2f, 1.0f));
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
+            turtle.AddComponent<Canis::TransformComponent>(transform);
+            turtle.AddComponent<Canis::ColorComponent>();
+            turtle.AddComponent<Canis::MeshComponent>(mesh);
+            turtle.AddComponent<Canis::SphereColliderComponent>(collider);
+            Turtle& tur = turtle.AddScript<Turtle>();
+            tur.player = monkey;
         }
     }
     

@@ -62,6 +62,7 @@ int main(int argc, char* argv[])
 
     app.AddSplashScene(new Canis::Scene("engine_splash", "assets/scenes/engine_splash.scene"));
     app.AddScene(new Canis::Scene("3d_demo", "assets/scenes/3d_demo.scene"));
+    app.AddScene(new Canis::Scene("game_over", "assets/scenes/game_over.scene"));
 
     app.Run("Shark Bonk", "3d_demo");
 
