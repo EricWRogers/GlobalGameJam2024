@@ -22,18 +22,11 @@ public:
     }
 
     void OnReady()
-    {
-        Canis::TransformComponent t;
-        t.registry = &(GetScene().entityRegistry);
-
-        Canis::Entity emptyParent = CreateEntity();
-        emptyParent.AddComponent<Canis::TransformComponent>(t);
-        emptyParent.AddScript<Rotate>();
-        
+    {      
 
         Canis::TransformComponent transform;
         transform.registry = &(GetScene().entityRegistry);
-        transform.position.x += 3;
+        Canis::SetTransformScale(transform, glm::vec3(3.0f, 1.0f, 3.0f));
 
         Canis::MeshComponent mesh;
         mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
@@ -46,35 +39,13 @@ public:
         cube.AddComponent<Canis::ColorComponent>();
         cube.AddComponent<Canis::MeshComponent>(mesh);
         cube.AddComponent<Canis::SphereColliderComponent>(collider);
-        cube.AddScript<Rotate>();
-
-        cube.SetParent(emptyParent);
-
-        Canis::Entity smallCube = CreateEntity();
-        smallCube.AddComponent<Canis::TransformComponent>(transform);
-        smallCube.AddComponent<Canis::ColorComponent>();
-        smallCube.AddComponent<Canis::MeshComponent>(mesh);
-        smallCube.AddComponent<Canis::SphereColliderComponent>(collider);
-
-        smallCube.SetPosition(glm::vec3(0.5f));
-        smallCube.SetScale(glm::vec3(0.5f));
-        smallCube.SetParent(cube);
-
-        Canis::Entity smallSmallCube = CreateEntity();
-        smallSmallCube.AddComponent<Canis::TransformComponent>(transform);
-        smallSmallCube.AddComponent<Canis::ColorComponent>();
-        smallSmallCube.AddComponent<Canis::MeshComponent>(mesh);
-        smallSmallCube.AddComponent<Canis::SphereColliderComponent>(collider);
-
-        smallSmallCube.SetPosition(glm::vec3(0.5f));
-        smallSmallCube.SetScale(glm::vec3(0.5f));
-        smallSmallCube.SetParent(smallCube);
 
         Canis::Entity monkey = CreateEntity();
 
         {
             Canis::TransformComponent tr;
-            tr.registry = &(GetScene().entityRegistry);    
+            tr.registry = &(GetScene().entityRegistry);
+            SetTransformPosition(tr, glm::vec3(0.0f, 3.0f, 0.0f));  
 
             mesh.id = Canis::AssetManager::LoadModel("assets/models/monkey.obj");        
 
@@ -101,6 +72,7 @@ public:
             
             camera.SetParent(cameraPivot);
             playerMovement.camera = camera;
+            playerMovement.cube = cube;
         }
     }
     

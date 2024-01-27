@@ -13,12 +13,13 @@ class PlayerMovement : public Canis::ScriptableEntity
 {
 public:
     Canis::Entity camera;
+    Canis::Entity cube;
 
     float speed = 2.0f;
     float gravity = -25.0f;
     float jumpForce = 15.0f;
     float groundLevel = 0.0f;
-    float yOffset = 0.5f;
+    float yOffset = 1.0f;
     float turnSpeed = 5.0f;
 
     bool isGrounded = false;
@@ -40,6 +41,7 @@ public:
         isWalking = false;
 
         TransformComponent& transform = GetComponent<TransformComponent>();
+
         vec3 cameraPosition = GetCamera().Position;
         cameraPosition.y = transform.position.y;
 
@@ -56,16 +58,27 @@ public:
 
         targetPosition.y += acceleration.y * _dt;
 
-        if (groundLevel >= targetPosition.y - yOffset)
+        Hit hit;
+        if (CheckRay(cube, Ray(GetGlobalPosition(transform), vec3(0.0f, -1.0f, 0.0f)), hit))
         {
-            isGrounded = true;
-            targetPosition.y = yOffset;
-            acceleration.y = 0.0f;
+            if (hit.position.y >= targetPosition.y - yOffset)
+            {
+                isGrounded = true;
+                targetPosition.y = yOffset + hit.position.y;
+                acceleration.y = 0.0f;
+            }
+            else
+            {
+                isGrounded = false;
+            }
         }
         else
         {
             isGrounded = false;
         }
+
+        
+        
 
         if (GetInputManager().GetKey(SDL_SCANCODE_W))
         {
