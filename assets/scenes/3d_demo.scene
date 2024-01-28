@@ -1,6 +1,7 @@
 Scene: 3d_demo
 Systems:
   - Canis::ButtonSystem
+  - Canis::UISliderSystem
 RenderSystems:
   - Canis::RenderMeshWithShadowSystem
   - Canis::RenderHUDSystem
@@ -20,7 +21,7 @@ Entities:
     Canis::RectTransformComponent:
       active: true
       anchor: 6
-      position: [30.0, 30.0]
+      position: [30.0, 60.0]
       size: [0.0, 0.0]
       originOffset: [0.0, 0.0]
       rotation: 0.0
@@ -37,3 +38,7 @@ Entities:
     Canis::ScriptComponent: FPSCounter
   - 2:
     Prefab: "assets/prefabs/water.prefab"
+  - 3:
+    Prefab: "assets/prefabs/health_bar.prefab"
+  - 4:
+    Canis::ScriptComponent: ScoreManager  

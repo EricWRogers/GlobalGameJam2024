@@ -29,11 +29,11 @@ public:
 
         Canis::TransformComponent transform;
         transform.registry = &(GetScene().entityRegistry);
-        Canis::SetTransformScale(transform, glm::vec3(5.0f, 1.0f, 5.0f));
+        Canis::SetTransformScale(transform, glm::vec3(5.0f, 1.5f, 5.0f));
 
         Canis::MeshComponent mesh;
-        mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
-        mesh.material = Canis::AssetManager::LoadMaterial("assets/materials/box.material");
+        mesh.id = Canis::AssetManager::LoadModel("assets/models/raft.obj");
+        mesh.material = Canis::AssetManager::LoadMaterial("assets/materials/yes_default.material");
 
         Canis::SphereColliderComponent collider;
 
@@ -43,11 +43,10 @@ public:
         cube.AddComponent<Canis::MeshComponent>(mesh);
         cube.AddComponent<Canis::SphereColliderComponent>(collider);
 
-        Canis::Entity rayCube = CreateEntity();
-        rayCube.AddComponent<Canis::TransformComponent>(transform);
-        rayCube.AddComponent<Canis::ColorComponent>();
-        rayCube.AddComponent<Canis::MeshComponent>(mesh);
-        rayCube.AddComponent<Canis::SphereColliderComponent>(collider);
+        mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
+        mesh.material = Canis::AssetManager::LoadMaterial("assets/materials/box.material");
+
+
 
         Canis::Entity monkey = CreateEntity();
 
@@ -55,9 +54,9 @@ public:
             Canis::TransformComponent tr;
             tr.registry = &(GetScene().entityRegistry);
             SetTransformPosition(tr, glm::vec3(0.0f, 3.0f, 0.0f));  
-            SetTransformScale(tr, glm::vec3(1.0f));
+            SetTransformScale(tr, glm::vec3(1.0f, 1.0f, 1.0f));
 
-            //mesh.id = Canis::AssetManager::LoadModel("assets/models/monkey.obj");        
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/pogo.obj");        
 
             monkey.AddComponent<Canis::TransformComponent>(tr);
             monkey.AddComponent<Canis::ColorComponent>();
@@ -67,7 +66,6 @@ public:
         }
 
         PlayerMovement& playerMovement = monkey.AddScript<PlayerMovement>();
-        playerMovement.rayCube = rayCube;
 
         {
             Canis::Entity cameraPivot = CreateEntity();
@@ -77,7 +75,7 @@ public:
             Canis::Entity camera = CreateEntity();
             Canis::TransformComponent& camTransform = camera.AddComponent<Canis::TransformComponent>();
             camTransform.registry = &(GetScene().entityRegistry); 
-            Canis::SetTransformPosition(camTransform, glm::vec3(3.0f));
+            Canis::SetTransformPosition(camTransform, glm::vec3(1.0f, 3.0f, 1.0f));
             PlayerCamera& playerCamera = camera.AddScript<PlayerCamera>();
             playerCamera.target = monkey;
             
@@ -89,9 +87,10 @@ public:
         Canis::Entity turtle = CreateEntity();
 
         {
+            mesh.material = Canis::AssetManager::LoadMaterial("assets/materials/yes_default.material");
             Canis::SetTransformPosition(transform, glm::vec3(0.6f));
-            Canis::SetTransformScale(transform, glm::vec3(1.0f, 0.2f, 1.0f));
-            mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
+            Canis::SetTransformScale(transform, glm::vec3(0.2f, 0.2f, 0.2f));
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/turtle.obj");
             turtle.AddComponent<Canis::TransformComponent>(transform);
             turtle.AddComponent<Canis::ColorComponent>();
             turtle.AddComponent<Canis::MeshComponent>(mesh);
@@ -104,8 +103,8 @@ public:
 
         {
             Canis::SetTransformPosition(transform, glm::vec3(1.5f));
-            Canis::SetTransformScale(transform, glm::vec3(1.0f, 0.2f, 1.0f));
-            mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
+            Canis::SetTransformScale(transform, glm::vec3(0.2f, 0.2f, 0.2f));
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/bird.obj");
             chicken.AddComponent<Canis::TransformComponent>(transform);
             chicken.AddComponent<Canis::ColorComponent>();
             chicken.AddComponent<Canis::MeshComponent>(mesh);
@@ -117,15 +116,30 @@ public:
         Canis::Entity sharkEntity = CreateEntity();
 
         {
+            mesh.material = Canis::AssetManager::LoadMaterial("assets/materials/yes_default.material");
             Canis::SetTransformPosition(transform, glm::vec3(1.5f, 0.0f, 1.5f));
-            Canis::SetTransformScale(transform, glm::vec3(1.1f, 1.1f, 3.0f));
-            mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
+            Canis::SetTransformScale(transform, glm::vec3(1.0f, 1.0f, 1.0f));
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/shark.obj");
+            sharkEntity.SetTag("SHARK");
             sharkEntity.AddComponent<Canis::TransformComponent>(transform);
             sharkEntity.AddComponent<Canis::ColorComponent>();
             sharkEntity.AddComponent<Canis::MeshComponent>(mesh);
             sharkEntity.AddComponent<Canis::SphereColliderComponent>(collider);
             Shark& shark = sharkEntity.AddScript<Shark>();
             shark.raft = cube;
+
+            /*Canis::Entity sharkEntityG = CreateEntity();
+
+            mesh.material = Canis::AssetManager::LoadMaterial("assets/materials/yes_default.material");
+            Canis::SetTransformPosition(transform, glm::vec3(0.0f));
+            Canis::SetTransformScale(transform, glm::vec3(0.55f, 0.55f, 0.11f));
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/shark.obj");
+            sharkEntityG.AddComponent<Canis::TransformComponent>(transform);
+            sharkEntityG.AddComponent<Canis::ColorComponent>();
+            sharkEntityG.AddComponent<Canis::MeshComponent>(mesh);
+            sharkEntityG.AddComponent<Canis::SphereColliderComponent>(collider);
+
+            sharkEntityG.SetParent(sharkEntity);*/
         }
     }
     

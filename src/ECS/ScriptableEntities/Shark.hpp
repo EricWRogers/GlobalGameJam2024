@@ -8,24 +8,28 @@
 #include <Canis/ScriptableEntity.hpp>
 #include <Canis/ECS/Components/ScriptComponent.hpp>
 #include <Canis/ECS/Components/TransformComponent.hpp>
+#include <Canis/ECS/Components/UISliderComponent.hpp>
 #include <Canis/SceneManager.hpp>
 
 class Shark : public Canis::ScriptableEntity
 {
 public:
     Canis::Entity raft;
+    Canis::Entity healthBar;
     vec3 direction;
     float speed = 5.0f;
+    float dps = 0.1f;
 
     float spawnMinRadius = 15.0f;
     float spawnMaxRadius = 20.0f;
 
-    float raftOffset = 0.5f;
+    float raftOffset = 0.8f;
 
     void OnCreate() {}
 
     void OnReady() {
         ResetPosition();
+        healthBar = entity.GetEntityWithTag("HealthSlider");
     }
 
     void OnDestroy() {}
@@ -64,9 +68,7 @@ public:
             if (CheckRay(raft, ray, raftHit))
             {
                 float raftHitDistance = distance(raftHit.position, sharkPos);
-                float sharkHitDistance = distance(sharkHit.position, sharkPos);
-
-                
+                float sharkHitDistance = distance(sharkHit.position, sharkPos);                
 
                 if (raftHitDistance < sharkHitDistance - raftOffset)
                     return true;
@@ -113,6 +115,8 @@ public:
         if (CheckForRaft())
         {
             // damage the raft
+            UISliderComponent& uiSlider = healthBar.GetComponent<UISliderComponent>();
+            SetUISliderTarget(uiSlider, uiSlider.targetValue - (dps * _dt));    
         }
         else
         {
@@ -120,7 +124,7 @@ public:
             vec3 raftPos = GetGlobalPosition(raft.GetComponent<TransformComponent>());
 
             SetTransformPosition(transform, GetGlobalPosition(transform) + (direction * speed * _dt));
-            LookAt(transform, raftPos, glm::vec3(0.0f, 1.0f, 0.0f));
+            LookAt(transform, GetGlobalPosition(transform) + (direction * speed), glm::vec3(0.0f, 1.0f, 0.0f));
         }
     }
 };

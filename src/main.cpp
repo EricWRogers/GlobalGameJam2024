@@ -14,6 +14,7 @@
 #include <Canis/ECS/Systems/CollisionSystem2D.hpp>
 #include <Canis/ECS/Systems/ButtonSystem.hpp>
 #include <Canis/ECS/Systems/RenderMeshWithShadowSystem.hpp>
+#include <Canis/ECS/Systems/UISliderSystem.hpp>
 
 #include "ECS/ScriptableEntities/DebugCamera2D.hpp"
 #include "ECS/ScriptableEntities/SpawnCube.hpp"
@@ -23,6 +24,8 @@
 #include "ECS/ScriptableEntities/PlayerCamera.hpp"
 #include "ECS/ScriptableEntities/RetryButton.hpp"
 #include "ECS/ScriptableEntities/QuitButton.hpp"
+#include "ECS/ScriptableEntities/FinalScoreDisplay.hpp"
+#include "ECS/ScriptableEntities/ScoreManager.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -32,6 +35,7 @@ int main(int argc, char* argv[])
     app.AddDecodeSystem(Canis::DecodeButtonSystem);
     app.AddDecodeSystem(Canis::DecodeCollisionSystem2D);
 	app.AddDecodeSystem(Canis::DecodeSpriteAnimationSystem);
+    app.AddDecodeSystem(Canis::DecodeUISliderSystem);
 
     // decode render system
     app.AddDecodeRenderSystem(Canis::DecodeRenderHUDSystem);
@@ -47,6 +51,8 @@ int main(int argc, char* argv[])
     app.AddDecodeScriptableEntity(DecodeSplashLoader);
     app.AddDecodeScriptableEntity(DecodeRetryButton);
     app.AddDecodeScriptableEntity(DecodeQuitButton);
+    app.AddDecodeScriptableEntity(DecodeFinalScoreDisplay);
+    app.AddDecodeScriptableEntity(DecodeScoreManager);
 
     // decode component
     app.AddDecodeComponent(Canis::DecodeTransformComponent);

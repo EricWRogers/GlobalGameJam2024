@@ -15,7 +15,7 @@ private:
     bool m_mouseLock = false;
 public:
     Canis::Entity target;
-    float mouseSensitivity = 0.1f;
+    float mouseSensitivity = 0.5f;
 
     void OnCreate() {}
 
@@ -50,7 +50,7 @@ public:
         SetTransformPosition(parentTransform, GetGlobalPosition(targetTransform));
 
         if (m_mouseLock == true)
-            Canis::Rotate(parentTransform, vec3(0.0f, radians(GetInputManager().mouseRel.x * mouseSensitivity), 0.0f));
+            Canis::Rotate(parentTransform, vec3(0.0f, radians(-GetInputManager().mouseRel.x * mouseSensitivity), 0.0f));
 
         camera.Position = GetGlobalPosition(transform);
         camera.Front = normalize(GetGlobalPosition(targetTransform) - camera.Position);

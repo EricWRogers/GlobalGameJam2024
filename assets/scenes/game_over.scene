@@ -28,3 +28,5 @@ Entities:
     Canis::ScriptComponent: RetryButton
   - 2:
     Canis::ScriptComponent: QuitButton
+  - 3:
+    Canis::ScriptComponent: FinalScoreDisplay  

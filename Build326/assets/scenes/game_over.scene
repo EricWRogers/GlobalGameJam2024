@@ -1,0 +1,30 @@
+Scene: game_over
+Systems:
+  - Canis::ButtonSystem
+  - Canis::SpriteAnimationSystem
+RenderSystems:
+  - Canis::SpriteRenderer2DSystem
+  - Canis::RenderHUDSystem
+Entities:
+  - 0:
+    Canis::RectTransformComponent:
+      active: true
+      anchor: 4
+      position: [0.0, 200.0]
+      size: [0.0, 0.0]
+      originOffset: [0.0, 0.0]
+      rotation: 0.0
+      scale: 1.0
+      depth: 0.1
+    Canis::ColorComponent:
+      color: [1.0, 1.0, 1.0, 1.0]
+    Canis::TextComponent:
+      assetId:
+        path: "assets/fonts/Antonio-Bold.ttf"
+        size: 48
+      text: GameOver
+      alignment: 2
+  - 1:
+    Canis::ScriptComponent: RetryButton
+  - 2:
+    Canis::ScriptComponent: QuitButton
