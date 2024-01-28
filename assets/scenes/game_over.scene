@@ -24,3 +24,7 @@ Entities:
         size: 48
       text: GameOver
       alignment: 2
+  - 1:
+    Canis::ScriptComponent: RetryButton
+  - 2:
+    Canis::ScriptComponent: QuitButton

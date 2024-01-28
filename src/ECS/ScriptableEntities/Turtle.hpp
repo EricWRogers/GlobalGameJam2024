@@ -15,7 +15,7 @@ class Turtle : public Canis::ScriptableEntity
 public:
     Canis::Entity player;
     vec3 direction;
-    float speed = 1.0f;
+    float speed = 5.0f;
 
     float spawnMinRadius = 15.0f;
     float spawnMaxRadius = 20.0f;
@@ -57,28 +57,20 @@ public:
 
         Ray ray(dir, turtlePos);
 
-        /*if (CheckRay(entity, ray, turtleHit))
+        if (CheckRay(entity, ray, turtleHit))
         {
             if (CheckRay(player, ray, playerHit))
             {
                 float playerHitDistance = distance(playerHit.position, turtlePos);
                 float turtleHitDistance = distance(turtleHit.position, turtlePos);
 
+                playerHitDistance -= 1.0f;
+
                 std::cout << playerHitDistance << " " << turtleHitDistance << std::endl;
 
                 if (playerHitDistance < turtleHitDistance)
-                    return false;
+                    return true;
             }
-        }*/
-
-        if (CheckRay(player, ray, playerHit))
-        {
-            float playerHitDistance = distance(playerHit.position, turtlePos);
-
-            std::cout << playerHitDistance << std::endl;
-
-            if (playerHitDistance < 0.9f)
-                return true;
         }
 
         return false;

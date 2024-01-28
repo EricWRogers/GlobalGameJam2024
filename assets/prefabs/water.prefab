@@ -3,7 +3,7 @@ Entities:
     Canis::TransformComponent:
       active: true
       position: [0.0, 0.0, 0.0]
-      scale: [1.5, 1.0, 1.5]
+      scale: [5.5, 1.0, 5.5]
     Canis::MeshComponent:
       modelPath: "assets/models/water.obj"
       castShadow: false

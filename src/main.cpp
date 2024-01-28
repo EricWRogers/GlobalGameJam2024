@@ -21,6 +21,8 @@
 #include "ECS/ScriptableEntities/FPSCounter.hpp"
 #include "ECS/ScriptableEntities/SplashLoader.hpp"
 #include "ECS/ScriptableEntities/PlayerCamera.hpp"
+#include "ECS/ScriptableEntities/RetryButton.hpp"
+#include "ECS/ScriptableEntities/QuitButton.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -43,6 +45,8 @@ int main(int argc, char* argv[])
     app.AddDecodeScriptableEntity(DecodeFlyCam);
     app.AddDecodeScriptableEntity(DecodeFPSCounter);
     app.AddDecodeScriptableEntity(DecodeSplashLoader);
+    app.AddDecodeScriptableEntity(DecodeRetryButton);
+    app.AddDecodeScriptableEntity(DecodeQuitButton);
 
     // decode component
     app.AddDecodeComponent(Canis::DecodeTransformComponent);

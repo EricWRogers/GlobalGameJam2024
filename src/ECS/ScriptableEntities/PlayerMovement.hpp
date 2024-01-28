@@ -20,7 +20,7 @@ public:
     float gravity = -25.0f;
     float jumpForce = 15.0f;
     float groundLevel = 0.0f;
-    float yOffset = 1.0f;
+    float yOffset = 0.5f;
     float turnSpeed = 5.0f;
 
     bool isGrounded = false;

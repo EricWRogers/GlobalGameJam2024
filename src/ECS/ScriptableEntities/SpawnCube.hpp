@@ -27,7 +27,7 @@ public:
 
         Canis::TransformComponent transform;
         transform.registry = &(GetScene().entityRegistry);
-        Canis::SetTransformScale(transform, glm::vec3(3.0f, 1.0f, 3.0f));
+        Canis::SetTransformScale(transform, glm::vec3(5.0f, 1.0f, 5.0f));
 
         Canis::MeshComponent mesh;
         mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
@@ -48,7 +48,7 @@ public:
             tr.registry = &(GetScene().entityRegistry);
             SetTransformPosition(tr, glm::vec3(0.0f, 3.0f, 0.0f));  
 
-            mesh.id = Canis::AssetManager::LoadModel("assets/models/monkey.obj");        
+            //mesh.id = Canis::AssetManager::LoadModel("assets/models/monkey.obj");        
 
             monkey.AddComponent<Canis::TransformComponent>(tr);
             monkey.AddComponent<Canis::ColorComponent>();
@@ -79,7 +79,7 @@ public:
         Canis::Entity turtle = CreateEntity();
 
         {
-            Canis::SetTransformPosition(transform, glm::vec3(2.0f));
+            Canis::SetTransformPosition(transform, glm::vec3(1.0f));
             Canis::SetTransformScale(transform, glm::vec3(1.0f, 0.2f, 1.0f));
             mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
             turtle.AddComponent<Canis::TransformComponent>(transform);
