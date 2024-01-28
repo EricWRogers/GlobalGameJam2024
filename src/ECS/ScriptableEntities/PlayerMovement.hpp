@@ -15,10 +15,11 @@ class PlayerMovement : public Canis::ScriptableEntity
 public:
     Canis::Entity camera;
     Canis::Entity cube;
+    Canis::Entity rayCube;
 
     float speed = 2.0f;
     float gravity = -25.0f;
-    float jumpForce = 15.0f;
+    float jumpForce = 35.0f;
     float groundLevel = 0.0f;
     float yOffset = 0.5f;
     float turnSpeed = 5.0f;
@@ -30,7 +31,10 @@ public:
 
     void OnCreate() {}
 
-    void OnReady() {}
+    void OnReady() {
+        rayCube.SetScale(glm::vec3(1.5f));
+        yOffset = entity.GetComponent<Canis::TransformComponent>().scale.y/2.0f;
+    }
 
     void OnDestroy() {}
 
@@ -60,8 +64,11 @@ public:
         targetPosition.y += acceleration.y * _dt;
 
         Hit hit;
+        TransformComponent& rayCubeTransform = rayCube.GetComponent<TransformComponent>();
         if (CheckRay(cube, Ray(GetGlobalPosition(transform), vec3(0.0f, -1.0f, 0.0f)), hit))
         {
+            rayCubeTransform.active = true;
+            SetTransformPosition(rayCubeTransform, hit.position);
             if (hit.position.y >= targetPosition.y - yOffset)
             {
                 isGrounded = true;
@@ -75,6 +82,7 @@ public:
         }
         else
         {
+            rayCubeTransform.active = false;
             isGrounded = false;
         }
 

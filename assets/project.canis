@@ -1,8 +1,8 @@
 fullscreen false
 width 1280
 heigth 720
-use_frame_limit false
-frame_limit 120
+use_frame_limit true
+frame_limit 60
 override_seed false
 seed 0
 volume-can-range-from-0.0-1.5

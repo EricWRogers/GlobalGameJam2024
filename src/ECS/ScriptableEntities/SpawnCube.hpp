@@ -13,6 +13,7 @@
 #include "PlayerCamera.hpp"
 #include "PlayerMovement.hpp"
 #include "Turtle.hpp"
+#include "Chicken.hpp"
 
 class SpawnCube : public Canis::ScriptableEntity
 {
@@ -40,6 +41,13 @@ public:
         cube.AddComponent<Canis::ColorComponent>();
         cube.AddComponent<Canis::MeshComponent>(mesh);
         cube.AddComponent<Canis::SphereColliderComponent>(collider);
+        cube.AddScript<Rotate>();
+
+        Canis::Entity rayCube = CreateEntity();
+        rayCube.AddComponent<Canis::TransformComponent>(transform);
+        rayCube.AddComponent<Canis::ColorComponent>();
+        rayCube.AddComponent<Canis::MeshComponent>(mesh);
+        rayCube.AddComponent<Canis::SphereColliderComponent>(collider);
 
         Canis::Entity monkey = CreateEntity();
 
@@ -47,6 +55,7 @@ public:
             Canis::TransformComponent tr;
             tr.registry = &(GetScene().entityRegistry);
             SetTransformPosition(tr, glm::vec3(0.0f, 3.0f, 0.0f));  
+            SetTransformScale(tr, glm::vec3(1.0f));
 
             //mesh.id = Canis::AssetManager::LoadModel("assets/models/monkey.obj");        
 
@@ -58,6 +67,7 @@ public:
         }
 
         PlayerMovement& playerMovement = monkey.AddScript<PlayerMovement>();
+        playerMovement.rayCube = rayCube;
 
         {
             Canis::Entity cameraPivot = CreateEntity();
@@ -79,7 +89,7 @@ public:
         Canis::Entity turtle = CreateEntity();
 
         {
-            Canis::SetTransformPosition(transform, glm::vec3(1.0f));
+            Canis::SetTransformPosition(transform, glm::vec3(0.6f));
             Canis::SetTransformScale(transform, glm::vec3(1.0f, 0.2f, 1.0f));
             mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
             turtle.AddComponent<Canis::TransformComponent>(transform);
@@ -88,6 +98,20 @@ public:
             turtle.AddComponent<Canis::SphereColliderComponent>(collider);
             Turtle& tur = turtle.AddScript<Turtle>();
             tur.player = monkey;
+        }
+
+        Canis::Entity chicken = CreateEntity();
+
+        {
+            Canis::SetTransformPosition(transform, glm::vec3(1.5f));
+            Canis::SetTransformScale(transform, glm::vec3(1.0f, 0.2f, 1.0f));
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
+            chicken.AddComponent<Canis::TransformComponent>(transform);
+            chicken.AddComponent<Canis::ColorComponent>();
+            chicken.AddComponent<Canis::MeshComponent>(mesh);
+            chicken.AddComponent<Canis::SphereColliderComponent>(collider);
+            Chicken& chick = chicken.AddScript<Chicken>();
+            chick.player = monkey;
         }
     }
     

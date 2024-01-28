@@ -10,7 +10,7 @@
 #include <Canis/ECS/Components/TransformComponent.hpp>
 #include <Canis/SceneManager.hpp>
 
-class Turtle : public Canis::ScriptableEntity
+class Chicken : public Canis::ScriptableEntity
 {
 public:
     Canis::Entity player;
@@ -46,8 +46,8 @@ public:
 
         TransformComponent &transform = GetComponent<TransformComponent>();
 
-        vec3 playerPos = GetGlobalPosition(player.GetComponent<TransformComponent>());
-        vec3 turtlePos = GetGlobalPosition(GetComponent<TransformComponent>());
+        vec3 playerPos = player.GetComponent<TransformComponent>().position;
+        vec3 turtlePos = GetComponent<TransformComponent>().position;
         playerPos.y = turtlePos.y;
         vec3 dir = normalize(playerPos - turtlePos);
         
@@ -111,7 +111,7 @@ public:
         TransformComponent &transform = GetComponent<TransformComponent>();
 
         SetTransformPosition(transform, GetGlobalPosition(transform) + (direction * speed * _dt));
-        //Canis::Rotate(transform, vec3(0.0f, radians(360.0f * _dt), 0.0f));
+        Canis::Rotate(transform, vec3(0.0f, radians(360.0f * _dt), 0.0f));
         if (TooFarCheck())
             ResetPosition();
         
@@ -123,12 +123,12 @@ public:
     }
 };
 
-bool DecodeTurtle(const std::string &_name, Canis::Entity &_entity)
+bool DecodeChicken(const std::string &_name, Canis::Entity &_entity)
 {
-    if (_name == "Turtle")
+    if (_name == "Chicken")
     {
         Canis::ScriptComponent scriptComponent = {};
-        scriptComponent.Bind<Turtle>();
+        scriptComponent.Bind<Chicken>();
         _entity.AddComponent<Canis::ScriptComponent>(scriptComponent);
         return true;
     }
