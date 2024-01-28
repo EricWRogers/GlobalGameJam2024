@@ -135,6 +135,12 @@ public:
             isGrounded = StompSharkCheck();
         }
 
+        if (isGrounded == false)
+        {
+            if (GetInputManager().JustPressedKey(SDLK_BACKSPACE) || GetInputManager().JustPressedKey(SDLK_SPACE))
+                acceleration.y = -jumpForce;
+        }
+
         if (isGrounded)
             acceleration.y = jumpForce;
 
