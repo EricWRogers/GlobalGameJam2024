@@ -14,6 +14,7 @@
 #include "PlayerMovement.hpp"
 #include "Turtle.hpp"
 #include "Chicken.hpp"
+#include "Shark.hpp"
 
 class SpawnCube : public Canis::ScriptableEntity
 {
@@ -41,7 +42,6 @@ public:
         cube.AddComponent<Canis::ColorComponent>();
         cube.AddComponent<Canis::MeshComponent>(mesh);
         cube.AddComponent<Canis::SphereColliderComponent>(collider);
-        cube.AddScript<Rotate>();
 
         Canis::Entity rayCube = CreateEntity();
         rayCube.AddComponent<Canis::TransformComponent>(transform);
@@ -112,6 +112,20 @@ public:
             chicken.AddComponent<Canis::SphereColliderComponent>(collider);
             Chicken& chick = chicken.AddScript<Chicken>();
             chick.player = monkey;
+        }
+        
+        Canis::Entity sharkEntity = CreateEntity();
+
+        {
+            Canis::SetTransformPosition(transform, glm::vec3(1.5f, 0.0f, 1.5f));
+            Canis::SetTransformScale(transform, glm::vec3(1.1f, 1.1f, 3.0f));
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/white_block.obj");
+            sharkEntity.AddComponent<Canis::TransformComponent>(transform);
+            sharkEntity.AddComponent<Canis::ColorComponent>();
+            sharkEntity.AddComponent<Canis::MeshComponent>(mesh);
+            sharkEntity.AddComponent<Canis::SphereColliderComponent>(collider);
+            Shark& shark = sharkEntity.AddScript<Shark>();
+            shark.raft = cube;
         }
     }
     
