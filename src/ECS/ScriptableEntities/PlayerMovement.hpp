@@ -78,7 +78,7 @@ public:
                     float playerHitDistance = distance(playerHit.position, playerPos);
                     float sharkHitDistance = distance(sharkHit.position, playerPos);
 
-                    if (playerHitDistance + 0.5f > sharkHitDistance)
+                    if (playerHitDistance + 0.8f > sharkHitDistance)
                     {
                         static_cast<Shark *>(shark.GetComponent<ScriptComponent>().Instance)->ResetPosition();
                         found = true;
@@ -137,7 +137,11 @@ public:
 
         if (isGrounded == false)
         {
-            if (GetInputManager().JustPressedKey(SDLK_BACKSPACE) || GetInputManager().JustPressedKey(SDLK_SPACE))
+            if (GetInputManager().JustPressedKey(SDLK_BACKSPACE) || 
+                GetInputManager().JustPressedKey(SDLK_SPACE) ||
+                GetInputManager().JustPressedButton(0, Canis::ControllerButton::A) ||
+                GetInputManager().JustPressedButton(0, Canis::ControllerButton::RIGHTSHOULDER) ||
+                GetInputManager().JustLeftClicked())
                 acceleration.y = -jumpForce;
         }
 
@@ -148,28 +152,28 @@ public:
 
         targetPosition.y += acceleration.y * _dt;
 
+        vec2 inputVec = vec2(0.0f);
+
+        inputVec = GetInputManager().GetRightStick(0);
+        inputVec.y *= -1;
+
         if (GetInputManager().GetKey(SDL_SCANCODE_W))
-        {
-            targetPosition -= lookFront * speed * _dt;
-            isWalking = true;
-        }
+            inputVec.y = -1;
 
         if (GetInputManager().GetKey(SDL_SCANCODE_S))
-        {
-            targetPosition += lookFront * speed * _dt;
-            isWalking = true;
-        }
+            inputVec.y = 1;
 
         if (GetInputManager().GetKey(SDL_SCANCODE_A))
-        {
-            targetPosition -= lookRight * speed * _dt;
-            isWalking = true;
-        }
+            inputVec.x = -1;
 
         if (GetInputManager().GetKey(SDL_SCANCODE_D))
+            inputVec.x = 1;
+
+        if (inputVec != vec2(0.0f))
         {
-            targetPosition += lookRight * speed * _dt;
             isWalking = true;
+            targetPosition += lookFront * (inputVec.y * speed * _dt);
+            targetPosition += lookRight * (inputVec.x * speed * _dt);
         }
 
         if (isWalking)

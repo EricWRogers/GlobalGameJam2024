@@ -49,8 +49,15 @@ public:
 
         SetTransformPosition(parentTransform, GetGlobalPosition(targetTransform));
 
+        float inputX = 0.0f;
+
+        if (GetInputManager().GetLeftStick(0).x != 0.0f)
+            inputX = GetInputManager().GetLeftStick(0).x;
+        else
+            inputX = -GetInputManager().mouseRel.x;
+
         if (m_mouseLock == true)
-            Canis::Rotate(parentTransform, vec3(0.0f, radians(-GetInputManager().mouseRel.x * mouseSensitivity), 0.0f));
+            Canis::Rotate(parentTransform, vec3(0.0f, radians(inputX * mouseSensitivity), 0.0f));
 
         camera.Position = GetGlobalPosition(transform);
         camera.Front = normalize(GetGlobalPosition(targetTransform) - camera.Position);

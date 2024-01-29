@@ -1,3 +1,0 @@
-shader: assets/shaders/shadow_mapping
-albedo: assets/textures/container.png
-specular: assets/textures/container_specular.png

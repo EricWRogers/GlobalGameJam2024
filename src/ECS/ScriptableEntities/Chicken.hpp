@@ -64,8 +64,6 @@ public:
                 float playerHitDistance = distance(playerHit.position, turtlePos);
                 float turtleHitDistance = distance(turtleHit.position, turtlePos);
 
-                std::cout << playerHitDistance << " " << turtleHitDistance << std::endl;
-
                 if (playerHitDistance < turtleHitDistance)
                     return true;
             }

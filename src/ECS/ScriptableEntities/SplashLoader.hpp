@@ -49,7 +49,6 @@ public:
         {
             if (GetScene().name == "splash_screen")
             {
-                Canis::Log("Load main_menu");
                 ((Canis::SceneManager*)entity.scene->sceneManager)->Load("main_menu");
                 hasCalledLoad = true;
                 return;
@@ -57,7 +56,6 @@ public:
 
             if (GetScene().name == "engine_splash")
             {
-                Canis::Log("Load splash_screen");
                 ((Canis::SceneManager*)entity.scene->sceneManager)->Load("3d_demo");
                 hasCalledLoad = true;
                 return;

@@ -10,6 +10,7 @@ Entities:
       rotation: 0.0
       scale: 1.0
       depth: 0.0
+      scaleWithScreen: 1
     Canis::ColorComponent:
       color: [1.0, 1.0, 1.0, 1.0]
     Canis::UIImageComponent:
@@ -26,6 +27,7 @@ Entities:
       rotation: 0.0
       scale: 1.0
       depth: 0.01
+      scaleWithScreen: 1
     Canis::ColorComponent:
       color: [1.0, 1.0, 1.0, 1.0]
     Canis::UIImageComponent:
@@ -47,6 +49,7 @@ Entities:
       rotation: 0.0
       scale: 1.0
       depth: 0.02
+      scaleWithScreen: 1
     Canis::ColorComponent:
       color: [1.0, 1.0, 1.0, 1.0]
     Canis::UIImageComponent:

@@ -75,8 +75,8 @@ void main()
     float maxVisableDepth = 2.5;
     float seaFoamDepth = 0.2;
 
-    if (waterDistance >= floorDistance)
-        discard;
+    //if (waterDistance > floorDistance)
+    //    discard;
 
     vec3 dirResult;
     if (numDirLights > 0)
@@ -129,6 +129,16 @@ void main()
     
     if ((whiteCap + result.b) > 1.0)
         whiteCap = (1.0 - result.b);
+    
+    if (waterDistance > floorDistance)
+    {
+        FragColor = lerp(
+            screenColor + vec4(result, 1.0),
+            vec4(result, 1.0),
+            clamp(waterDepth/maxVisableDepth, 0.0, 1.0)
+        );
+        return;
+    }
 
     FragColor = lerp(
                     vec4(1.0),

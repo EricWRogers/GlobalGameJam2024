@@ -27,8 +27,45 @@
 #include "ECS/ScriptableEntities/FinalScoreDisplay.hpp"
 #include "ECS/ScriptableEntities/ScoreManager.hpp"
 
+// Define these only in *one* .cc file.
+    #define TINYGLTF_IMPLEMENTATION
+    #define STB_IMAGE_IMPLEMENTATION
+    #define STB_IMAGE_WRITE_IMPLEMENTATION
+    // #define TINYGLTF_NOEXCEPTION // optional. disable exception handling.
+    #include <Canis/External/TinyGLTF.hpp>
+
 int main(int argc, char* argv[])
 {
+    
+
+    using namespace tinygltf;
+
+    Model model;
+    TinyGLTF loader;
+    std::string err;
+    std::string warn;
+
+    //bool ret = loader.LoadASCIIFromFile(&model, &err, &warn, "assets/models/shark.gltf");
+    bool ret = loader.LoadBinaryFromFile(&model, &err, &warn, "assets/models/shark.glb"); // for binary glTF(.glb)
+
+    if (!warn.empty()) {
+        printf("Warn: %s\n", warn.c_str());
+    }
+
+    if (!err.empty()) {
+        printf("Err: %s\n", err.c_str());
+    }
+
+    if (!ret) {
+        printf("Failed to parse glTF\n");
+        return -1;
+    }
+
+    for (int i = 0; i < model.meshes.size(); i++)
+    {
+        std::cout << model.meshes[i].name << std::endl;
+    }
+
     Canis::App app;
 
     // decode system
@@ -74,7 +111,7 @@ int main(int argc, char* argv[])
     app.AddScene(new Canis::Scene("3d_demo", "assets/scenes/3d_demo.scene"));
     app.AddScene(new Canis::Scene("game_over", "assets/scenes/game_over.scene"));
 
-    app.Run("Shark Bonk", "3d_demo");
+    app.Run("Shark Bonk", "engine_splash");
 
     return 0;
 }

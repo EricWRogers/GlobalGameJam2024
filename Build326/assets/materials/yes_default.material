@@ -1,4 +1,0 @@
-shader: assets/shaders/shadow_mapping
-albedo: assets/textures/palette/yes_diffuse.png
-specular: assets/textures/palette/yes_specular.png
-emission: assets/textures/palette/yes_emission.png
