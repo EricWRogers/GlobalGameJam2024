@@ -119,7 +119,7 @@ public:
             mesh.material = Canis::AssetManager::LoadMaterial("assets/materials/yes_default.material");
             Canis::SetTransformPosition(transform, glm::vec3(1.5f, 0.0f, 1.5f));
             Canis::SetTransformScale(transform, glm::vec3(1.0f, 1.0f, 1.0f));
-            mesh.id = Canis::AssetManager::LoadModel("assets/models/shark.obj");
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/shark.glb");
             sharkEntity.SetTag("SHARK");
             sharkEntity.AddComponent<Canis::TransformComponent>(transform);
             sharkEntity.AddComponent<Canis::ColorComponent>();
