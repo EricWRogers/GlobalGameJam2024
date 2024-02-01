@@ -62,7 +62,18 @@ public:
             monkey.AddComponent<Canis::ColorComponent>();
             monkey.AddComponent<Canis::MeshComponent>(mesh);
             monkey.AddComponent<Canis::SphereColliderComponent>(collider);
+
+            Canis::SetTransformPosition(tr, glm::vec3(0.0f, 0.5f, -0.5f));
             
+            GetWindow().MouseLock(false);
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/rigged_figure.glb");
+            Canis::Entity humanGraphics = CreateEntity();
+            Canis::TransformComponent &tc = humanGraphics.AddComponent<Canis::TransformComponent>(transform);
+            humanGraphics.AddComponent<Canis::ColorComponent>();
+            humanGraphics.AddComponent<Canis::MeshComponent>(mesh);
+            humanGraphics.AddComponent<Canis::SphereColliderComponent>(collider);
+            humanGraphics.SetParent(monkey);
+            Canis::SetTransformScale(tc, glm::vec3(0.7f));
         }
 
         PlayerMovement& playerMovement = monkey.AddScript<PlayerMovement>();
@@ -119,8 +130,7 @@ public:
             mesh.material = Canis::AssetManager::LoadMaterial("assets/materials/yes_default.material");
             Canis::SetTransformPosition(transform, glm::vec3(1.5f, 0.0f, 1.5f));
             Canis::SetTransformScale(transform, glm::vec3(1.0f, 1.0f, 1.0f));
-            GetWindow().MouseLock(false);
-            mesh.id = Canis::AssetManager::LoadModel("assets/models/RiggedFigure.gltf");//shark.glb");
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/shark.glb");
             sharkEntity.SetTag("SHARK");
             sharkEntity.AddComponent<Canis::TransformComponent>(transform);
             sharkEntity.AddComponent<Canis::ColorComponent>();
