@@ -22,7 +22,7 @@ uniform mat4 boneTransforms[32];
 
 void main()
 {
-    mat4 boneTransform = boneTransforms[aBoneIDs[0]] * aWeights[0];
+    /*mat4 boneTransform = boneTransforms[aBoneIDs[0]] * aWeights[0];
 
     if (aBoneIDs[0] != -1)
     {
@@ -34,14 +34,15 @@ void main()
             boneTransform += boneTransforms[aBoneIDs[3]] * aWeights[3];
         
         vs_out.FragPos = vec3(MODEL * boneTransform * vec4(aPos, 1.0));
+        gl_Position = projection * view * MODEL * boneTransform * vec4(aPos, 1.0);
     }
     else
-    {
+    {*/
         vs_out.FragPos = vec3(MODEL * vec4(aPos, 1.0));
-    }
+        gl_Position = projection * view * MODEL * vec4(aPos, 1.0);
+    //}
 
     vs_out.Normal = transpose(inverse(mat3(MODEL))) * aNormal;
     vs_out.TexCoords = aTexCoords;
     vs_out.FragPosLightSpace = lightSpaceMatrix * vec4(vs_out.FragPos, 1.0);
-    gl_Position = projection * view * vec4(vs_out.FragPos, 1.0);
 }

@@ -9,7 +9,7 @@ uniform mat4 boneTransforms[32];
 
 void main()
 {
-    if (aBoneIDs[0] != -1)
+    /*if (aBoneIDs[0] != -1)
     {
         mat4 boneTransform = boneTransforms[aBoneIDs[0]] * aWeights[0];
 
@@ -23,7 +23,7 @@ void main()
         gl_Position = lightSpaceMatrix * model * boneTransform * vec4(aPos, 1.0);
     }
     else
-    {
+    {*/
         gl_Position = lightSpaceMatrix * model * vec4(aPos, 1.0);
-    }
+    //}
 }
