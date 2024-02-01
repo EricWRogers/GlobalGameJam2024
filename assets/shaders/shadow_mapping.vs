@@ -22,6 +22,26 @@ uniform mat4 boneTransforms[32];
 
 void main()
 {
+    vec4 totalPosition = vec4(0.0f);
+    bool useBone = false;
+
+    for(int i = 0 ; i < 4 ; i++)
+    {
+        if(aBoneIDs[i] == -1) 
+            continue;
+        
+        useBone = true;
+
+        if(aBoneIDs[i] >= 32) 
+        {
+            totalPosition = vec4(aPos,1.0f);
+            break;
+        }
+        vec4 localPosition = boneTransforms[aBoneIDs[i]] * vec4(aPos,1.0f);
+        totalPosition += localPosition * aWeights[i];
+        //vec3 localNormal = mat3(boneTransforms[aBoneIDs[i]]) * norm;
+    }
+
     /*mat4 boneTransform = boneTransforms[aBoneIDs[0]] * aWeights[0];
 
     if (aBoneIDs[0] != -1)
@@ -35,12 +55,18 @@ void main()
         
         vs_out.FragPos = vec3(MODEL * boneTransform * vec4(aPos, 1.0));
         gl_Position = projection * view * MODEL * boneTransform * vec4(aPos, 1.0);
+    }*/
+
+    if (aBoneIDs[0] != -1)
+    {
+        vs_out.FragPos = vec3(MODEL * totalPosition);
+        gl_Position = projection * view * MODEL * totalPosition;
     }
     else
-    {*/
+    {
         vs_out.FragPos = vec3(MODEL * vec4(aPos, 1.0));
         gl_Position = projection * view * MODEL * vec4(aPos, 1.0);
-    //}
+    }
 
     vs_out.Normal = transpose(inverse(mat3(MODEL))) * aNormal;
     vs_out.TexCoords = aTexCoords;
