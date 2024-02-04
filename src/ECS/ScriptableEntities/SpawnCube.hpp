@@ -66,7 +66,7 @@ public:
             Canis::SetTransformPosition(tr, glm::vec3(0.0f, 0.5f, -0.5f));
             
             GetWindow().MouseLock(false);
-            mesh.id = Canis::AssetManager::LoadModel("assets/models/rigged_figure.glb");
+            mesh.id = Canis::AssetManager::LoadModel("assets/models/CesiumMan.gltf");
             Canis::Entity humanGraphics = CreateEntity();
             Canis::TransformComponent &tc = humanGraphics.AddComponent<Canis::TransformComponent>(transform);
             humanGraphics.AddComponent<Canis::ColorComponent>();

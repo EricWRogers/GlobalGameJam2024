@@ -29,6 +29,8 @@
 
 int main(int argc, char* argv[])
 {
+    //std::cout << sizeof(GL_INT) << std::endl;
+    //std::cout << sizeof(glm::ivec4) << std::endl;
     Canis::App app;
 
     // decode system
